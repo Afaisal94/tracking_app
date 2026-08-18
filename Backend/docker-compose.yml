@@ -1,13 +1,19 @@
-version: "3.9"
-services:
+﻿services:
   app:
     build: .
     ports:
       - "8080:8080"
     env_file: .env
+    environment:
+      DATABASE_URL: postgres://faisal:postgres1234@host.docker.internal:5432/db_tracking?sslmode=disable
+      REDIS_ADDR: host.docker.internal:6379
+      REDIS_URL: redis://:redis1234@host.docker.internal:6379/0
+      REDIS_PASSWORD: redis1234
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/health"]
+      test: ["CMD", "wget", "--quiet", "--tries=1", "-O", "-", "http://localhost:8080/health"]
       interval: 30s
       timeout: 10s
       retries: 3
