@@ -1,44 +1,14 @@
 version: "3.9"
 services:
-  postgres:
-    image: postgres:16-alpine
-    environment:
-      POSTGRES_USER: tracking
-      POSTGRES_PASSWORD: tracking_secret
-      POSTGRES_DB: tracking_db
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U tracking"]
-      interval: 5s
-      retries: 10
-
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "6379:6379"
-    command: redis-server --appendonly yes
-    volumes:
-      - redisdata:/data
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      retries: 10
-
   app:
     build: .
     ports:
       - "8080:8080"
     env_file: .env
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
     restart: unless-stopped
-
-volumes:
-  pgdata:
-  redisdata:
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
