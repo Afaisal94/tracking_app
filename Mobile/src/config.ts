@@ -1,4 +1,4 @@
-export const API_BASE_URL = 'https://attendee-dreary-hangover.ngrok-free.dev';
+export const API_BASE_URL = 'https://tracking-api.hellofaisal.my.id';
 export const WS_BASE_URL = API_BASE_URL.replace(/^http/, 'ws'); // https -> wss
 export const WS_TRACKING_PATH = '/ws/tracking';
 

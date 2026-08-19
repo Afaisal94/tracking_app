@@ -34,7 +34,7 @@ export default function LoginScreen() {
     <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor: '#F1F5F9', padding: 24, justifyContent: 'center' }}>
       <View style={{ alignItems: 'center', marginBottom: 32 }}>
         <View style={{ width: 64, height: 64, borderRadius: 16, backgroundColor: '#0F172A', alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ fontSize: 28 }}>📍</Text>
+          <Text style={{ fontSize: 36 }}>📍</Text>
         </View>
         <Text style={{ fontSize: 24, fontWeight: '800', color: '#0F172A', marginTop: 12 }}>Selamat Datang</Text>
         <Text style={{ color: '#64748B', marginTop: 4 }}>Masuk untuk memulai tracking</Text>
